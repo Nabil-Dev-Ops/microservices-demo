@@ -1,0 +1,20 @@
+grafana:
+  enabled: true
+  adminPassword: "nabil2407"
+  service:
+    type: NodePort
+    nodePort: 30000
+  persistence:
+    enabled: false
+
+prometheus:
+  prometheusSpec:
+    retention: 2d
+    serviceMonitorSelectorNilUsesHelmValues: false
+    podMonitorSelectorNilUsesHelmValues: false
+
+nodeExporter:
+  enabled: true
+
+alertmanager:
+  enabled: false
