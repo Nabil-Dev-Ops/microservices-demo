@@ -5,18 +5,13 @@
 .kubernetes-manifests-*/
 .project
 .skaffold-*.yaml
-.terraform.lock.hcl
-.terraform/*
 .venv/
 .vs/
-.vscode/
 *.iml
 *.ipr
 *.iws
 *.pyc
 *.swp
-*.tfstate*
-*.tfvars
 *~
 bin/
 build/
@@ -27,3 +22,33 @@ pkg/
 release/wi-kubernetes-manifests.yaml
 vendor/
 gha-creds-*.json
+
+# OpenTofu / Terraform (Recursive)
+**/.terraform/
+**/.terraform/*
+**/.terraform.lock.hcl
+*.tfstate
+*.tfstate.*
+*.tfvars
+*.tfvars.json
+
+# Environment & Secrets (Never commit these!)
+.env
+*.env
+*.pem
+*.key
+*.id_rsa
+*.id_ed25519
+
+# Cluster credentials
+kubeconfig
+*.kubeconfig
+
+# Logs and cache
+*.log
+tmp/
+Thumbs.db
+
+# VS Code local state (keep shared settings)
+.vscode/*
+!.vscode/settings.json
