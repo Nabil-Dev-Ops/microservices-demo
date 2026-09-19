@@ -33,11 +33,15 @@ jobs:
     runs-on: ubuntu-latest
     needs: lint-manifests
     strategy:
+      fail-fast: false
       matrix:
-        service:
-          - frontend
-          - cartservice
-          - productcatalogservice
+        include:
+          - service: frontend
+            context: ./src/frontend
+          - service: cartservice
+            context: ./src/cartservice/src
+          - service: productcatalogservice
+            context: ./src/productcatalogservice
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -48,6 +52,6 @@ jobs:
       - name: Test Build Microservice
         uses: docker/build-push-action@v5
         with:
-          context: ./src/${{ matrix.service }}
+          context: ${{ matrix.context }}
           push: false
           tags: ${{ matrix.service }}:test
