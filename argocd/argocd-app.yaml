@@ -8,9 +8,7 @@ spec:
   source:
     repoURL: 'https://github.com/Nabil-Dev-Ops/microservices-demo.git'
     targetRevision: HEAD
-    path: release
-    directory:
-      include: 'kubernetes-manifests.yaml'
+    path: kubernetes-manifests
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: default
