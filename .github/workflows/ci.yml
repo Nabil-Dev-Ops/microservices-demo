@@ -14,15 +14,19 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Validate YAML Syntax
+      - name: Install Tools
         run: |
           sudo apt-get update && sudo apt-get install -y yamllint
+          curl -sSL https://github.com/yannh/kubeconform/releases/latest/download/kubeconform-linux-amd64.tar.gz | tar xz
+          sudo mv kubeconform /usr/local/bin/
+
+      - name: Validate YAML Syntax
+        run: |
           yamllint -d "{extends: relaxed, rules: {line-length: disable}}" kubernetes-manifests/
 
       - name: Kubeconform Manifest Check
-        uses: yannh/kubeconform-action@v0.8.0
-        with:
-          files: 'kubernetes-manifests/*.yaml'
+        run: |
+          kubeconform -summary kubernetes-manifests/
 
   build-check:
     name: Build Verification
